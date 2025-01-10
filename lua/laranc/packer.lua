@@ -26,4 +26,5 @@ return require("packer").startup(function(use)
 	use { "hrsh7th/cmp-nvim-lsp" }
 	use { "hrsh7th/cmp-buffer" }
 	use { "lukas-reineke/lsp-format.nvim" }
+	use { "m4xshen/autoclose.nvim" }
 end)
