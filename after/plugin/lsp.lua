@@ -3,7 +3,7 @@ local cmp = require("cmp")
 
 require("mason").setup({})
 require("mason-lspconfig").setup({
-	ensure_installed = { "lua_ls", "clangd", "gopls", "zls" },
+	ensure_installed = { "lua_ls", "clangd", "gopls", "zls", "ols" },
 })
 
 local defaults = lspconfig.util.default_config
@@ -27,6 +27,7 @@ lspconfig.lua_ls.setup({
 lspconfig.clangd.setup({})
 lspconfig.gopls.setup({})
 lspconfig.zls.setup({})
+lspconfig.ols.setup({})
 
 vim.api.nvim_create_autocmd("LspAttach", {
 	callback = function(event)

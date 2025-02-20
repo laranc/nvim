@@ -27,4 +27,11 @@ return require("packer").startup(function(use)
 	use { "hrsh7th/cmp-buffer" }
 	use { "lukas-reineke/lsp-format.nvim" }
 	use { "m4xshen/autoclose.nvim" }
+	use {
+		"romgrk/barbar.nvim",
+		requires = {
+			"nvim-tree/nvim-webdevicons",
+			"lewis6991/gitsigns.nvim",
+		},
+	}
 end)
