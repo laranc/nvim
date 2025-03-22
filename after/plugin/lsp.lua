@@ -1,33 +1,39 @@
-local lspconfig = require("lspconfig")
+local lsp = require("lspconfig")
 local cmp = require("cmp")
+local mason_lsp = require("mason-lspconfig")
 
 require("mason").setup({})
-require("mason-lspconfig").setup({
+
+mason_lsp.setup({
 	ensure_installed = { "lua_ls", "clangd", "gopls", "zls", "ols" },
 })
 
-local defaults = lspconfig.util.default_config
+local defaults = lsp.util.default_config
 defaults.capabilities = vim.tbl_deep_extend(
 	"force",
 	defaults.capabilities,
 	require("cmp_nvim_lsp").default_capabilities()
 )
 
-lspconfig.lua_ls.setup({
-	settings = {
-		Lua = {
-			workspace = {
-				userThirdParty = { os.getenv("HOME") .. ".local/share/LuaAddons" },
-				checkThirdParty = "Apply",
-			},
-		},
-	},
-})
+mason_lsp.setup_handlers({
+	function(server)
+		if server == "lua_ls" then
+			lsp.lua_ls.setup({
+				settings = {
+					Lua = {
+						workspace = {
+							userThirdParty = { os.getenv("HOME") .. ".local/share/LuaAddons" },
+							checkThirdParty = "Apply",
+						},
+					},
+				},
 
-lspconfig.clangd.setup({})
-lspconfig.gopls.setup({})
-lspconfig.zls.setup({})
-lspconfig.ols.setup({})
+			})
+		else
+			lsp[server].setup({})
+		end
+	end,
+})
 
 vim.api.nvim_create_autocmd("LspAttach", {
 	callback = function(event)
