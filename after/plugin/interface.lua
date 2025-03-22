@@ -8,3 +8,5 @@ require("barbar").setup({
 		["neo-tree"] = { event = "BufWipeout" },
 	}
 })
+
+require("ibl").setup()
